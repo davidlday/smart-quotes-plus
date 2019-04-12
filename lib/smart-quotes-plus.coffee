@@ -30,6 +30,7 @@ dumbreplace = (editor) ->
 
 doreplacement = (text) ->
 
+    apostrophe = "ʼ"
     open_double_single = "“‘"
     open_single_double = "‘“"
     open_double = "“"
@@ -38,6 +39,9 @@ doreplacement = (text) ->
     close_double_single = "”’"
     close_double = "”"
     close_single = "’"
+
+    # apostrophe
+    text = text.replace /([\w.!?%,])'([\w.])/g, ($0, $1, $2) -> $1+apostrophe+$2
 
     # quotes
     text = text.replace /"'(?=\w)/g, ($0) -> open_double_single
@@ -64,6 +68,9 @@ doreplacement = (text) ->
     return text
 
 dodumbreplacement = (text) ->
+
+    # apostrophe
+    text = text.replace /ʼ/g, "'"
 
     # quotes
     text = text.replace /“|”/g, "\""
